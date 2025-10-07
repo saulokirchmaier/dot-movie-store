@@ -1,7 +1,9 @@
-import { Heart, ShoppingCart, Search } from 'lucide-react';
+import { Heart, ShoppingCart, Search, X } from 'lucide-react';
 import { Input } from '../ui/input';
+import { useSearch } from '@/contexts/SearchContext';
 
 const Header = () => {
+  const { searchQuery, setSearchQuery } = useSearch();
   return (
     <header className="bg-emerald-100 text-white p-4">
       <div className="grid grid-cols-2 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-4 items-center max-w-[1400px] mx-auto">
@@ -42,12 +44,22 @@ const Header = () => {
           <Input
             type="text"
             placeholder="Pesquisar filme"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="rounded-full pr-10 text-black border-emerald-800 bg-white w-full"
           />
-          <Search
-            size={20}
-            className="absolute right-6 top-1/2 -translate-y-1/2 text-emerald-800"
-          />
+          {searchQuery ? (
+            <X
+              size={20}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800 cursor-pointer hover:scale-110 transition-transform"
+              onClick={() => setSearchQuery('')}
+            />
+          ) : (
+            <Search
+              size={20}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800"
+            />
+          )}
         </div>
       </div>
     </header>
