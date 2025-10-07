@@ -23,10 +23,7 @@ const Header = () => {
               console.log('favoritos');
             }}
           >
-            <Heart
-              size={24}
-              className="text-emerald-900 lg:w-8 lg:h-8"
-            />
+            <Heart size={24} className="text-emerald-900 lg:w-8 lg:h-8" />
           </div>
           <div
             className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
