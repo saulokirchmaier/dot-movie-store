@@ -87,16 +87,6 @@ function TooltipContent({
               ease: 'easeOut',
               times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1],
             },
-            exit: {
-              opacity: { duration: 0.25 },
-              scale: { duration: 0.25, ease: 'easeIn' },
-              y: { duration: 0.25, ease: 'easeIn' },
-              x: {
-                duration: 0.4,
-                ease: 'easeOut',
-                times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 1],
-              },
-            },
           }}
           className={cn(
             'bg-primary text-primary-foreground w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance',
