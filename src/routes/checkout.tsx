@@ -6,12 +6,14 @@ import {
   AddressForm,
   OrderSummary,
   EmptyCart,
+  CheckoutDialog,
 } from '@/components/Checkout';
 import { ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { checkoutSchema } from '@/schemas/checkoutSchema';
 import type { CheckoutFormData } from '@/schemas/checkoutSchema';
+import { useState } from 'react';
 
 export const Route = createFileRoute('/checkout')({
   component: CheckoutPage,
@@ -19,12 +21,15 @@ export const Route = createFileRoute('/checkout')({
 
 function CheckoutPage() {
   const { cartItems, clearCart } = useShoppingCart();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [customerName, setCustomerName] = useState('');
 
   // React Hook Form com Zod
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
+    reset,
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
     mode: 'onBlur', // Valida ao sair do campo
@@ -44,12 +49,18 @@ function CheckoutPage() {
     console.log('✅ Formulário válido!', data);
     console.log('🛒 Itens do carrinho:', cartItems);
 
-    // TODO: Integrar com API
-    // TODO: Processar pagamento
-    // TODO: Salvar pedido
+    // Salva o nome do cliente
+    setCustomerName(data.fullName);
 
-    alert('Pedido finalizado com sucesso! (em desenvolvimento)');
+    // Abre o dialog de processamento/sucesso
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    // Limpa o carrinho e reseta o formulário após fechar o dialog
     clearCart();
+    reset();
   };
 
   return (
@@ -64,7 +75,7 @@ function CheckoutPage() {
             Voltar
           </Link>
           <div className="flex-1 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 ">Checkout</h2>
+            <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
           </div>
         </div>
 
@@ -75,24 +86,25 @@ function CheckoutPage() {
             onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-1 lg:grid-cols-3 gap-8"
           >
+            {/* Formulários */}
             <div className="order-2 lg:order-1 lg:col-span-2">
               <PersonalDataForm register={register} errors={errors} />
               <AddressForm register={register} errors={errors} />
             </div>
 
+            {/* Resumo do Pedido */}
             <div className="order-1 lg:order-2 lg:col-span-1">
               <OrderSummary />
             </div>
-
-            {isSubmitting && (
-              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg">
-                  <p className="text-lg font-semibold">Processando pedido...</p>
-                </div>
-              </div>
-            )}
           </form>
         )}
+
+        {/* Dialog de Processamento e Sucesso */}
+        <CheckoutDialog
+          isOpen={isDialogOpen}
+          onClose={handleDialogClose}
+          customerName={customerName}
+        />
       </div>
     </Layout>
   );

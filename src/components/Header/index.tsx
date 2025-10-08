@@ -83,7 +83,7 @@ const Header = ({ disableSearch = false }: HeaderProps) => {
           {!disableSearch && searchQuery ? (
             <X
               size={20}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800 cursor-pointer hover:scale-110 transition-transform"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 cursor-pointer hover:text-red-500 hover:scale-110 transition-transform"
               onClick={() => setSearchQuery('')}
             />
           ) : (

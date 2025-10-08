@@ -1,4 +1,6 @@
-// Validação de CPF
+/**
+ * Validação de CPF
+ */
 export const validateCPF = (cpf: string): boolean => {
   const cleanCPF = cpf.replace(/\D/g, '');
 

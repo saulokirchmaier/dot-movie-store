@@ -15,6 +15,7 @@ import {
   getMovieImageUrl,
   formatRating,
 } from '@/utils/movieUtils';
+import { Loader2 } from 'lucide-react';
 
 const MovieList = () => {
   const { searchQuery } = useSearch();
@@ -51,8 +52,8 @@ const MovieList = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-800 mx-auto"></div>
+        <div className="text-center flex flex-col items-center justify-center">
+          <Loader2 className="h-16 w-16 text-emerald-500 animate-spin mb-4" />
           <p className="mt-4 text-emerald-800">Carregando filmes...</p>
         </div>
       </div>
@@ -72,7 +73,7 @@ const MovieList = () => {
 
   return (
     <div className="max-w-[1440px] mx-auto p-4 pb-10">
-      <h2 className="text-2xl font-bold text-emerald-900 mb-6">
+      <h2 className="text-2xl font-bold text-emerald-900 mb-6 text-center">
         {isSearching
           ? `Resultados para "${debouncedSearchQuery}"`
           : 'Filmes Populares'}
@@ -112,7 +113,10 @@ const MovieList = () => {
 
           <div ref={ref} className="py-8 text-center">
             {isFetchingNextPage && (
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-800 mx-auto"></div>
+              <div className="flex flex-col gap-4 justify-center items-center">
+                <Loader2 className="h-16 w-16 text-emerald-500 animate-spin mb-4" />
+                <p className="text-gray-500">Carregando mais filmes...</p>
+              </div>
             )}
             {!hasNextPage && movies.length > 0 && (
               <p className="text-gray-500">
