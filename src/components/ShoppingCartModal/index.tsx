@@ -2,6 +2,7 @@ import { Modal } from '../ui/Modal';
 import { useShoppingCart } from '@/contexts';
 import { ShoppingCart, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
+import { useNavigate } from '@tanstack/react-router';
 
 interface ShoppingCartModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface ShoppingCartModalProps {
 
 export function ShoppingCartModal({ isOpen, onClose }: ShoppingCartModalProps) {
   const { cartItems, removeFromCart, clearCart } = useShoppingCart();
+  const navigate = useNavigate();
 
   // Calcular total do carrinho
   const total = cartItems.reduce((sum, item) => {
@@ -112,9 +114,8 @@ export function ShoppingCartModal({ isOpen, onClose }: ShoppingCartModalProps) {
                 </Button>
                 <Button
                   onClick={() => {
-                    // TODO: Implementar checkout
-                    console.log('Ir para checkout');
                     onClose();
+                    navigate({ to: '/checkout' });
                   }}
                   className="flex-1 px-4 py-2 text-sm bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition-colors"
                 >

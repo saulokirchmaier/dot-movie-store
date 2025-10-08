@@ -4,8 +4,13 @@ import { useSearch, useFavorites, useShoppingCart } from '@/contexts';
 import { FavoritesModal } from '../FavoritesModal';
 import { ShoppingCartModal } from '../ShoppingCartModal';
 import { useState } from 'react';
+import { Link } from '@tanstack/react-router';
 
-const Header = () => {
+interface HeaderProps {
+  disableSearch?: boolean;
+}
+
+const Header = ({ disableSearch = false }: HeaderProps) => {
   const { searchQuery, setSearchQuery } = useSearch();
   const { favoritesCount } = useFavorites();
   const { cartCount } = useShoppingCart();
@@ -15,7 +20,10 @@ const Header = () => {
   return (
     <header className="bg-emerald-100 text-white p-4 fixed top-0 left-0 right-0 z-50">
       <div className="grid grid-cols-2 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-4 items-center max-w-[1400px] mx-auto">
-        <div className="flex items-center gap-2 lg:gap-4 order-1">
+        <Link
+          to="/"
+          className="flex items-center gap-2 lg:gap-4 order-1 hover:opacity-80 transition-opacity"
+        >
           <img
             src="/logo.png"
             alt="Dot Movies Store"
@@ -24,10 +32,9 @@ const Header = () => {
           <h1 className="text-lg lg:text-2xl font-bold text-emerald-900">
             Movies Store
           </h1>
-        </div>
+        </Link>
 
         <div className="flex items-center gap-2 justify-self-end order-2 md:order-3">
-          {/* Favorites Button */}
           <div className="relative">
             <div
               className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
@@ -42,7 +49,6 @@ const Header = () => {
             )}
           </div>
 
-          {/* Shopping Cart Button */}
           <div className="relative">
             <div
               className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
@@ -64,12 +70,17 @@ const Header = () => {
         <div className="relative w-full md:max-w-md md:justify-self-center col-span-2 md:col-span-1 order-3 md:order-2">
           <Input
             type="text"
-            placeholder="Pesquisar filme"
+            placeholder={'Pesquisar filme'}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="rounded-full pr-10 text-black border-emerald-800 bg-white w-full"
+            disabled={disableSearch}
+            className={`rounded-full pr-10 text-black border-emerald-800 w-full ${
+              disableSearch
+                ? 'bg-gray-100 cursor-not-allowed opacity-60'
+                : 'bg-white'
+            }`}
           />
-          {searchQuery ? (
+          {!disableSearch && searchQuery ? (
             <X
               size={20}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800 cursor-pointer hover:scale-110 transition-transform"
@@ -78,13 +89,14 @@ const Header = () => {
           ) : (
             <Search
               size={20}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800"
+              className={`absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800 ${
+                disableSearch ? 'opacity-40' : ''
+              }`}
             />
           )}
         </div>
       </div>
 
-      {/* Modals */}
       <FavoritesModal
         isOpen={isFavoritesModalOpen}
         onClose={() => setIsFavoritesModalOpen(false)}
