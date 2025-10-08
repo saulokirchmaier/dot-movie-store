@@ -1,6 +1,6 @@
 import { Heart, ShoppingCart, Search, X } from 'lucide-react';
 import { Input } from '../ui/input';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/contexts';
 
 const Header = () => {
   const { searchQuery, setSearchQuery } = useSearch();

@@ -5,7 +5,7 @@ import {
 } from '@/hooks/useMovies';
 import { useGenres, formatGenres } from '@/hooks/useGenres';
 import { useDebounce } from '@/hooks/useDebounce';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/contexts';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import MovieCard from '@/components/MovieCard';

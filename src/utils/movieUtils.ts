@@ -1,5 +1,8 @@
 import type { Movie } from '@/types/movie.types';
 
+const IMAGE_BASE_URL =
+  import.meta.env.VITE_TMDB_IMAGE_BASE_URL || 'https://image.tmdb.org/t/p';
+
 /**
  * Gera um preço simulado baseado na popularidade e avaliação do filme
  * @param movie - Objeto do filme com dados do TMDb
@@ -51,7 +54,7 @@ export const getMovieImageUrl = (
   fallbackPath: string = '/cover.jpg'
 ): string => {
   if (!posterPath) return fallbackPath;
-  return `https://image.tmdb.org/t/p/w500${posterPath}`;
+  return `${IMAGE_BASE_URL}/w500${posterPath}`;
 };
 
 /**
