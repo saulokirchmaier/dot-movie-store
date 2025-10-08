@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -16,6 +16,26 @@ export function Modal({
   children,
   className = '',
 }: ModalProps) {
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      // Usa requestAnimationFrame duplo para garantir que o DOM foi renderizado
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsAnimating(true);
+        });
+      });
+    } else {
+      setIsAnimating(false);
+      // Aguarda a animação terminar antes de desmontar
+      const timer = setTimeout(() => setShouldRender(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   // Fecha modal com ESC
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -26,7 +46,6 @@ export function Modal({
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      // Previne scroll do body quando modal está aberto
       document.body.style.overflow = 'hidden';
     }
 
@@ -36,22 +55,26 @@ export function Modal({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!shouldRender) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-end">
-      {/* Backdrop */}
+      {/* Backdrop com fade in */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className={`
+          absolute inset-0 bg-black/60 backdrop-blur-sm
+          transition-opacity duration-500 ease-out
+          ${isAnimating ? 'opacity-100' : 'opacity-0'}
+        `}
         onClick={onClose}
       />
 
-      {/* Modal */}
+      {/* Modal com slide in da direita */}
       <div
         className={`
           relative bg-neutral-800 w-full max-w-md h-full shadow-xl
-          transform transition-transform duration-300 ease-out
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          transform transition-all duration-500 ease-out
+          ${isAnimating ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}
           ${className}
         `}
       >

@@ -1,4 +1,5 @@
 import { Trash2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ModalMovieItemProps {
   id: string;
@@ -16,7 +17,17 @@ export function ModalMovieItem({
   onRemove,
 }: ModalMovieItemProps) {
   return (
-    <div className="flex items-center gap-4 p-4 bg-neutral-700 rounded-lg hover:bg-neutral-600 transition-colors relative">
+    <motion.div
+      layout
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100 }}
+      transition={{
+        duration: 0.3,
+        ease: 'easeOut',
+      }}
+      className="flex items-center gap-4 p-4 bg-neutral-700 rounded-lg hover:bg-neutral-600 transition-colors relative"
+    >
       {/* Movie Image */}
       <div className="w-16 h-24 bg-neutral-600 rounded-md overflow-hidden flex-shrink-0">
         {imageURL ? (
@@ -52,6 +63,6 @@ export function ModalMovieItem({
       >
         <Trash2 size={16} />
       </button>
-    </div>
+    </motion.div>
   );
 }
