@@ -17,7 +17,6 @@ export function PersonalDataForm({ register, errors }: PersonalDataFormProps) {
       </h2>
 
       <div className="space-y-4">
-        {/* Nome Completo */}
         <div>
           <Label htmlFor="fullName" direction="left">
             Nome Completo <span className="text-red-500">*</span>
@@ -39,7 +38,6 @@ export function PersonalDataForm({ register, errors }: PersonalDataFormProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* CPF com máscara */}
           <div>
             <Label htmlFor="cpf" direction="left">
               CPF <span className="text-red-500">*</span>
@@ -63,7 +61,6 @@ export function PersonalDataForm({ register, errors }: PersonalDataFormProps) {
             )}
           </div>
 
-          {/* Celular com máscara */}
           <div>
             <Label htmlFor="phone" direction="right">
               Celular <span className="text-red-500">*</span>
@@ -90,7 +87,6 @@ export function PersonalDataForm({ register, errors }: PersonalDataFormProps) {
           </div>
         </div>
 
-        {/* Email */}
         <div>
           <Label htmlFor="email" direction="left">
             Email <span className="text-red-500">*</span>

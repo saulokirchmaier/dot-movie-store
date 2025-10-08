@@ -4,3 +4,6 @@ export { OrderSummary } from './OrderSummary';
 export { EmptyCart } from './EmptyCart';
 export { CartItem } from './CartItem';
 export { CheckoutDialog } from './CheckoutDialog';
+export { CheckoutHeader } from './CheckoutHeader';
+export { CheckoutForm } from './CheckoutForm';
+export { CheckoutContent } from './CheckoutContent';

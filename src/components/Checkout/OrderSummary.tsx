@@ -23,7 +23,7 @@ export function OrderSummary() {
           Resumo do Pedido
         </h3>
         <h4 className="text-sm font-medium text-gray-700 mb-3">
-          Itens ({cartItems.length})
+          {cartItems.length} {cartItems.length === 1 ? 'item' : 'itens'}
         </h4>
       </div>
 

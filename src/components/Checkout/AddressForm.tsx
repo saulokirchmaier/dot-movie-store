@@ -15,7 +15,6 @@ export function AddressForm({ register, errors }: AddressFormProps) {
       <h2 className="text-xl font-semibold text-gray-900 mb-6">Endereço</h2>
 
       <div className="space-y-4">
-        {/* CEP com máscara */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <Label htmlFor="cep" direction="left">
@@ -40,7 +39,6 @@ export function AddressForm({ register, errors }: AddressFormProps) {
             )}
           </div>
 
-          {/* Endereço */}
           <div>
             <Label htmlFor="address" direction="left">
               Endereço <span className="text-red-500">*</span>
@@ -65,7 +63,6 @@ export function AddressForm({ register, errors }: AddressFormProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Cidade */}
           <div>
             <Label htmlFor="city" direction="left">
               Cidade <span className="text-red-500">*</span>
@@ -84,7 +81,6 @@ export function AddressForm({ register, errors }: AddressFormProps) {
             )}
           </div>
 
-          {/* Estado */}
           <div>
             <Label htmlFor="state" direction="right">
               Estado <span className="text-red-500">*</span>
