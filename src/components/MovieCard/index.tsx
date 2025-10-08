@@ -30,7 +30,6 @@ const MovieCard = ({
   const [isHeartHovered, setIsHeartHovered] = useState(false);
 
   const isMobile = useIsMobile();
-  const valueCropTitle = isMobile ? 15 : 20;
 
   const { addToCart } = useShoppingCart();
 
@@ -100,22 +99,17 @@ const MovieCard = ({
           </div>
         </div>
         <div className="py-2 px-2 md:px-4 flex flex-col gap-1">
-          {title.length > valueCropTitle ? (
-            <Tooltip>
-              <TooltipTrigger>
-                <h2 className="text-sm md:text-lg font-bold text-gray-900">
-                  {title.substring(0, valueCropTitle)}...
-                </h2>
-              </TooltipTrigger>
-              <TooltipContent className="bg-gray-900 text-white font-bold">
-                <p>{title}</p>
-              </TooltipContent>
-            </Tooltip>
-          ) : (
-            <h3 className="text-sm md:text-lg font-bold text-gray-900">
-              {title}
-            </h3>
-          )}
+          <Tooltip>
+            <TooltipTrigger>
+              <h3 className="text-sm md:text-lg font-bold text-gray-900 truncate">
+                {title}
+              </h3>
+            </TooltipTrigger>
+            <TooltipContent className="bg-gray-900 text-white font-bold">
+              <p>{title}</p>
+            </TooltipContent>
+          </Tooltip>
+
           <div className="flex items-center justify-evenly">
             <div className="flex items-center gap-1 md:gap-2">
               <Star size={isMobile ? 18 : 24} fill="#ffd700" stroke="#ffd700" />

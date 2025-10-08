@@ -6,7 +6,9 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <MovieList />
+      <main className="mt-30 md:mt-20">
+        <MovieList />
+      </main>
     </div>
   );
 }

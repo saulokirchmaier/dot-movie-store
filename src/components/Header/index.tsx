@@ -1,11 +1,19 @@
 import { Heart, ShoppingCart, Search, X } from 'lucide-react';
 import { Input } from '../ui/input';
-import { useSearch } from '@/contexts';
+import { useSearch, useFavorites, useShoppingCart } from '@/contexts';
+import { FavoritesModal } from '../FavoritesModal';
+import { ShoppingCartModal } from '../ShoppingCartModal';
+import { useState } from 'react';
 
 const Header = () => {
   const { searchQuery, setSearchQuery } = useSearch();
+  const { favoritesCount } = useFavorites();
+  const { cartCount } = useShoppingCart();
+
+  const [isFavoritesModalOpen, setIsFavoritesModalOpen] = useState(false);
+  const [isShoppingCartModalOpen, setIsShoppingCartModalOpen] = useState(false);
   return (
-    <header className="bg-emerald-100 text-white p-4">
+    <header className="bg-emerald-100 text-white p-4 fixed top-0 left-0 right-0 z-50">
       <div className="grid grid-cols-2 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-4 items-center max-w-[1400px] mx-auto">
         <div className="flex items-center gap-2 lg:gap-4 order-1">
           <img
@@ -19,24 +27,37 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-2 justify-self-end order-2 md:order-3">
-          <div
-            className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
-            onClick={() => {
-              console.log('favoritos');
-            }}
-          >
-            <Heart size={24} className="text-emerald-900 lg:w-8 lg:h-8" />
+          {/* Favorites Button */}
+          <div className="relative">
+            <div
+              className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
+              onClick={() => setIsFavoritesModalOpen(true)}
+            >
+              <Heart size={24} className="text-emerald-900 lg:w-8 lg:h-8" />
+            </div>
+            {favoritesCount > 0 && (
+              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                {favoritesCount}
+              </span>
+            )}
           </div>
-          <div
-            className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
-            onClick={() => {
-              console.log('carrinho');
-            }}
-          >
-            <ShoppingCart
-              size={24}
-              className="text-emerald-900 lg:w-8 lg:h-8"
-            />
+
+          {/* Shopping Cart Button */}
+          <div className="relative">
+            <div
+              className="cursor-pointer rounded-full hover:bg-emerald-200 p-2 hover:scale-110 transition-all duration-300"
+              onClick={() => setIsShoppingCartModalOpen(true)}
+            >
+              <ShoppingCart
+                size={24}
+                className="text-emerald-900 lg:w-8 lg:h-8"
+              />
+            </div>
+            {cartCount > 0 && (
+              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                {cartCount}
+              </span>
+            )}
           </div>
         </div>
 
@@ -62,6 +83,17 @@ const Header = () => {
           )}
         </div>
       </div>
+
+      {/* Modals */}
+      <FavoritesModal
+        isOpen={isFavoritesModalOpen}
+        onClose={() => setIsFavoritesModalOpen(false)}
+      />
+
+      <ShoppingCartModal
+        isOpen={isShoppingCartModalOpen}
+        onClose={() => setIsShoppingCartModalOpen(false)}
+      />
     </header>
   );
 };
