@@ -62,7 +62,6 @@ describe('movieUtils', () => {
         original_language: 'en',
         original_title: 'Test Movie',
         adult: false,
-        video: false,
       };
 
       const price = generatePrice(mockMovie);
@@ -86,7 +85,6 @@ describe('movieUtils', () => {
         original_language: 'en',
         original_title: 'Movie 1',
         adult: false,
-        video: false,
       };
 
       const movie2: Movie = {

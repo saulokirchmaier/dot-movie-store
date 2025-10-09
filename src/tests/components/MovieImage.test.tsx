@@ -9,10 +9,10 @@ vi.mock('@/components/MovieCard/FavoriteButton', () => ({
 
 describe('MovieImage', () => {
   const defaultProps = {
-    id: '1',
+    movieId: '1',
+    movieTitle: 'Test Movie',
+    moviePrice: '29.90',
     imageURL: 'https://example.com/movie.jpg',
-    title: 'Test Movie',
-    price: '29.90',
     date: '2024',
   };
 

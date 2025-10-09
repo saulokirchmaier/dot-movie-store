@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '../utils/test-utils';
 import { MovieInfo } from '@/components/MovieCard/MovieInfo';
@@ -56,7 +55,7 @@ describe('MovieInfo', () => {
   });
 
   it('should wrap title in tooltip trigger', () => {
-    const { container } = render(<MovieInfo {...defaultProps} />);
+    render(<MovieInfo {...defaultProps} />);
 
     // Check that the title is wrapped in a tooltip component structure
     const titleElement = screen.getByText('Teste Movie');
@@ -80,7 +79,7 @@ describe('MovieInfo', () => {
   });
 
   it('should apply correct styling classes', () => {
-    const { container } = render(<MovieInfo {...defaultProps} />);
+    render(<MovieInfo {...defaultProps} />);
 
     const titleElement = screen.getByText('Teste Movie');
     expect(titleElement).toHaveClass('font-bold');
@@ -92,7 +91,7 @@ describe('MovieInfo', () => {
   });
 
   it('should render all info sections', () => {
-    const { container } = render(<MovieInfo {...defaultProps} />);
+    render(<MovieInfo {...defaultProps} />);
 
     // Check for title section
     expect(screen.getByText('Teste Movie')).toBeInTheDocument();
