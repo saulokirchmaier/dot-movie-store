@@ -55,9 +55,7 @@ export function ModalMovieItem({
       {/* Movie Info */}
       <div className="flex-1 min-w-0">
         <h4 className="font-medium text-neutral-100">{title}</h4>
-        <p className="text-sm text-emerald-400 font-semibold">
-          R$ {price}
-        </p>
+        <p className="text-sm text-emerald-400 font-semibold">R$ {price}</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -76,20 +74,30 @@ export function ModalMovieItem({
           </TooltipContent>
         </Tooltip>
 
-        {isFavoriteModal && <Tooltip>
-          <TooltipTrigger>
-            <button
-              onClick={() => addToCart({ id, title, price, imageURL, addedAt: new Date().toISOString() })}
-              className="p-2 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer hover:scale-110 text-neutral-400 hover:text-green-400"
-              aria-label={`Remover ${title} do carrinho`}
-            >
-              <ShoppingCart size={16} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Adicionar ao carrinho</p>
-          </TooltipContent>
-        </Tooltip>}
+        {isFavoriteModal && (
+          <Tooltip>
+            <TooltipTrigger>
+              <button
+                onClick={() =>
+                  addToCart({
+                    id,
+                    title,
+                    price,
+                    imageURL,
+                    addedAt: new Date().toISOString(),
+                  })
+                }
+                className="p-2 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer hover:scale-110 text-neutral-400 hover:text-green-400"
+                aria-label={`Remover ${title} do carrinho`}
+              >
+                <ShoppingCart size={16} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Adicionar ao carrinho</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
       </div>
     </motion.div>
   );
