@@ -18,7 +18,7 @@ export function FavoritesFooter() {
             className="flex-1 px-4 py-2 text-sm text-red-400 border border-red-400 rounded-md bg-transparent hover:bg-red-400 hover:text-white transition-colors"
             variant="outline"
           >
-            Limpar todos
+            Limpar Favoritos
           </Button>
         </div>
       </div>

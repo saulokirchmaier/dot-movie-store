@@ -28,12 +28,10 @@ export function CartItemsList({
             key={item.id}
             id={item.id}
             title={item.title}
-            imageURL={item.imageURL}
-            subtitle={
-              <p className="text-sm text-emerald-400 font-semibold">
-                R$ {item.price}
-              </p>
-            }
+            imageURL={item.imageURL || '/cover.png'}
+            price={item.price}
+            isFavoriteModal={false}
+            removeLabel="Remover do carrinho"
             onRemove={(id) => {
               onAnimationStart();
               removeFromCart(id);

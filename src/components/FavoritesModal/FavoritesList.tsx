@@ -28,12 +28,10 @@ export function FavoritesList({
             key={movie.id}
             id={movie.id}
             title={movie.title}
-            imageURL={movie.imageURL}
-            subtitle={
-              <p className="text-sm text-emerald-400 font-semibold">
-                R$ {movie.price}
-              </p>
-            }
+            imageURL={movie.imageURL || '/cover.png'}
+            isFavoriteModal={true}
+            price={movie.price}
+            removeLabel="Remover dos favoritos"
             onRemove={(id) => {
               onAnimationStart();
               removeFavorite(id);

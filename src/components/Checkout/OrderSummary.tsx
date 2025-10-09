@@ -1,6 +1,7 @@
 import { useShoppingCart } from '@/contexts';
 import { Button } from '@/components/ui/button';
 import { CartItem } from './CartItem';
+import { AnimatePresence } from 'framer-motion';
 
 export function OrderSummary() {
   const { cartItems } = useShoppingCart();
@@ -27,19 +28,17 @@ export function OrderSummary() {
         </h4>
       </div>
 
-      <div className="mb-6 max-h-[300px] overflow-y-auto">
+      <div className="mb-6 max-h-[420px] overflow-y-auto overflow-x-hidden">
         <div className="space-y-3">
-          {cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
+          <AnimatePresence mode="popLayout">
+            {cartItems.map((item) => (
+              <CartItem key={item.id} item={item} />
+            ))}
+          </AnimatePresence>
         </div>
       </div>
 
       <div className="space-y-3 mb-6 pt-4 border-t border-gray-200">
-        <div className="flex justify-between text-gray-600">
-          <span>Subtotal:</span>
-          <span>{formatPrice(total)}</span>
-        </div>
         <div className="flex justify-between text-lg font-bold text-gray-900">
           <span>Total:</span>
           <span className="text-emerald-600">{formatPrice(total)}</span>

@@ -1,11 +1,15 @@
-import { Trash2 } from 'lucide-react';
+import { ShoppingCart, Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
+import { useShoppingCart } from '@/contexts';
 
 interface ModalMovieItemProps {
   id: string;
   title: string;
-  imageURL: string | null;
-  subtitle: string | React.ReactNode;
+  imageURL: string;
+  price: string;
+  isFavoriteModal?: boolean;
+  removeLabel: string;
   onRemove: (id: string) => void;
 }
 
@@ -13,9 +17,12 @@ export function ModalMovieItem({
   id,
   title,
   imageURL,
-  subtitle,
+  price,
+  isFavoriteModal = false,
+  removeLabel,
   onRemove,
 }: ModalMovieItemProps) {
+  const { addToCart } = useShoppingCart();
   return (
     <motion.div
       layout
@@ -48,21 +55,42 @@ export function ModalMovieItem({
       {/* Movie Info */}
       <div className="flex-1 min-w-0">
         <h4 className="font-medium text-neutral-100">{title}</h4>
-        {typeof subtitle === 'string' ? (
-          <p className="text-sm text-neutral-400">{subtitle}</p>
-        ) : (
-          subtitle
-        )}
+        <p className="text-sm text-emerald-400 font-semibold">
+          R$ {price}
+        </p>
       </div>
 
-      {/* Remove Button */}
-      <button
-        onClick={() => onRemove(id)}
-        className="p-2 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer hover:scale-110 absolute right-2 top-2 text-neutral-400 hover:text-red-400"
-        aria-label={`Remover ${title} do carrinho`}
-      >
-        <Trash2 size={16} />
-      </button>
+      <div className="flex flex-col gap-2">
+        <Tooltip>
+          <TooltipTrigger>
+            <button
+              onClick={() => onRemove(id)}
+              className="p-2 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer hover:scale-110 text-neutral-400 hover:text-red-400"
+              aria-label={`Remover ${title} do carrinho`}
+            >
+              <Trash2 size={16} />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{removeLabel}</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {isFavoriteModal && <Tooltip>
+          <TooltipTrigger>
+            <button
+              onClick={() => addToCart({ id, title, price, imageURL, addedAt: new Date().toISOString() })}
+              className="p-2 rounded-full hover:bg-neutral-700 transition-colors cursor-pointer hover:scale-110 text-neutral-400 hover:text-green-400"
+              aria-label={`Remover ${title} do carrinho`}
+            >
+              <ShoppingCart size={16} />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Adicionar ao carrinho</p>
+          </TooltipContent>
+        </Tooltip>}
+      </div>
     </motion.div>
   );
 }
